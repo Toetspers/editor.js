@@ -94,9 +94,12 @@ export default class ReadOnly extends Module {
     /**
      * Save current Editor Blocks and render again
      */
-    const savedBlocks = await this.Editor.Saver.save();
+    let savedBlocks = await this.Editor.Saver.save();
 
     await this.Editor.BlockManager.clear();
+    
+    savedBlocks = this.Editor.BlockManager.blocks;
+    console.log("Editor:toggle", savedBlocks);
     await this.Editor.Renderer.render(savedBlocks.blocks);
 
     return this.readOnlyEnabled;
